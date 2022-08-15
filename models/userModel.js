@@ -34,6 +34,14 @@ const userSchema = new mongoose.Schema({
    },
    inspiration: {
     type: String
+   },
+   goal_weight: {
+    type: Number ,
+    default: 0
+    // required: true
+   },
+   weekly_goal: {
+    type: Number,
    }
 
 });
