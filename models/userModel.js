@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
     user_id: {
         type: String,
@@ -42,9 +42,19 @@ const userSchema = new mongoose.Schema({
    },
    weekly_goal: {
     type: Number,
+    default: 0
    }
 
 });
+
+userSchema.pre("save", function (next) {
+    if (!this.isModified("password")) return next();
+    this.password = bcrypt.hashSync(this.password, 10);
+    next();
+  });
+  
+
 const userModel = new mongoose.model('user',userSchema);
+
 
 module.exports = userModel;

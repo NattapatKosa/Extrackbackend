@@ -16,7 +16,7 @@ const activitiesSchema = new mongoose.Schema({
     activity_name: {
         type: String,
         enum: {
-            values: ['run','bicycle','ride','swim','walk','hike'],
+            values: ['run','bicycle','ride','swim','walk','hike','strength training'],
             message: '{values} is not supported'
         },
         required: true,

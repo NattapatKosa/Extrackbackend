@@ -4,29 +4,31 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 
 const getAllActivities = async (req, res, next) => {
-    const activities = await Activities.find({});
+    const activities = await Activities.find({
+        owner: req.user.user_id
+    });
     res.send(activities);
 }
 
 const getActivityById = async (req, res, next) => {
     // if (!ObjectId.isValid(req.params.activityId)){
-        //     return res.status(400).send()
-        //  }; //true
+    //     return res.status(400).send()
+    //  }; //true
     // const activity = await Activities.findById(req.params.activityId)
     // if (!activity) {
     //      return res.status(404).send();
     // } 
     // req.activity = activity
-    
+
     res.status(200).send(req.activity);
 }
 
 const User = require('../models/userModel');
 const addActivity = async (req, res, next) => {
     const user = await User.findOne({
-        user_id: '59066858-61c6-4a94-8b61-8c5e16b2b0ce',
+        user_id: req.user.user_id
     })
-    console.log(req.body);
+
     const activity = new Activities({
         owner: user.user_id,
         ...req.body
@@ -85,12 +87,19 @@ const removeActivity = async (req, res, next) => {
 const getSummary = async (req, res, next) => {
     // laterst 7 day 
     let totalDurations;
-    totalDurations = await Activities.aggregate([{
-        $group: {
-            _id: "$date",
-            total: { $sum: "$duration" }
+    totalDurations = await Activities.aggregate([
+        {
+            $match: {
+                owner: req.user.user_id
+            },
+        },
+        {
+            $group: {
+                _id: "$date",
+                total: { $sum: "$duration" },
+            }
         }
-    }])
+    ]);
 
     // db.activities.aggregate({"$group": {_id:"$date","total": {"$sum": "$duration"}}})
     res.send(totalDurations)
@@ -104,3 +113,8 @@ module.exports = {
     removeActivity,
     getSummary
 };
+
+// $group: {
+//     _id: "$date",
+//     total: { $sum: "$duration" },
+// }

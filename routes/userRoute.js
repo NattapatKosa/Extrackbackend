@@ -1,14 +1,20 @@
 const express = require('express');
-const userRoutes = express.Router();
+const userRoute = express.Router();
 const userController = require('../controllers/userController')
 
-userRoutes.get('/', userController.allUsers);
-userRoutes.get('/:user_id', userController.getUserById);
+const authSession = require('../middleware/authSession')
+
+userRoute.use(authSession);
+// path = user/activities
+const activitiesRoute = require('../routes/activitiesRoute')
+userRoute.use('/activities',activitiesRoute);
 
 
-userRoutes.post('/', userController.createUser);
+userRoute.get('/', userController.allUsers);
+userRoute.get('/me', userController.getUserById);
+userRoute.patch('/me', userController.editUser);
 
-userRoutes.patch('/:user_id', userController.editUser);
 
 
-module.exports = userRoutes;
+
+module.exports = userRoute;
