@@ -15,9 +15,9 @@ if (config.isVercel) {
       user: config.mongodb.username,
       pass: config.mongodb.password,
       retryWrites: true
-    }); 
+    });
     return next();
-    
+
   });
 }
 
@@ -47,7 +47,14 @@ app.use(
     //   },
     cookie: { maxAge: oneDay, secure: true, httpOnly: true, sameSite: "none" },
     resave: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI})
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      mongoOptions: {
+        user: config.mongodb.username,
+        pass: config.mongodb.password,
+        retryWrites: true
+      }
+    })
   })
 );
 
