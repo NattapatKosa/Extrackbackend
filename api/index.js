@@ -28,7 +28,7 @@ app.use(
       "https://extrack-font-end.vercel.app",
     ],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
