@@ -5,6 +5,7 @@ const cors = require("cors");
 const config = require('../config/config')
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 app.use(cookieParser());
 
 
@@ -24,7 +25,7 @@ if (config.isVercel) {
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
+      "https://extrack-font-end.vercel.app",
     ],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -48,6 +49,7 @@ app.use(
     //   },
     cookie: { maxAge: oneDay, secure: true, httpOnly: true, sameSite: "none" },
     resave: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI})
   })
 );
 
