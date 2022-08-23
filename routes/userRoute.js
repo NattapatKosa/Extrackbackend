@@ -4,15 +4,18 @@ const userController = require('../controllers/userController')
 
 const authSession = require('../middleware/authSession')
 
+
+
 userRoute.use(authSession);
+userRoute.patch('/me', userController.editUser);
 // path = user/activities
 const activitiesRoute = require('../routes/activitiesRoute')
 userRoute.use('/activities',activitiesRoute);
 
 
 userRoute.get('/', userController.allUsers);
-userRoute.get('/me', userController.getUserById);
-userRoute.patch('/me', userController.editUser);
+userRoute.get('/me', userController.get_me);
+
 
 
 

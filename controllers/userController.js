@@ -16,7 +16,7 @@ const createUser = async (req,res,next) => {
     }
 };
 
-const getUserById = async (req,res,next) => {
+const get_me = async (req,res,next) => {
     // const {user_id} = req.params
     const user = await User.findOne({user_id: req.user.user_id})
     if (!user) {
@@ -61,7 +61,7 @@ const editUser = async (req,res,next) => {
     res.send(user);
 }
 module.exports = {
-    getUserById,
+    get_me,
     createUser,
     editUser,
     allUsers

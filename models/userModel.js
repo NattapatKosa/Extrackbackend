@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: true
    },
+   dateOfBirth:{
+    type: Date,
+    required: true
+   },
    height: {
     type: Number,
     required: true

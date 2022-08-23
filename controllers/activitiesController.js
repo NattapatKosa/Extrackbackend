@@ -6,7 +6,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 const getAllActivities = async (req, res, next) => {
     const activities = await Activities.find({
         owner: req.user.user_id
-    });
+    }).sort([["date", -1]]);;
     res.send(activities);
 }
 
