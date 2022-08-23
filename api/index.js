@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 app.use(cookieParser());
 
-console.log(config)
+
 if (config.isVercel) {
   app.use(async (req, res, next) => {
     await mongoose.connect(config.mongodb.uri, {
