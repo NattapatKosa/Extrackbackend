@@ -10,12 +10,13 @@ app.use(cookieParser());
 
 if (config.isVercel) {
   app.use(async (req, res, next) => {
-    await mongoose.connect(config.mongodb.uri, {
-      user: config.mongodb.username,
-      pass: config.mongodb.password,
-      retryWrites: true
-    }); 
-    return next();
+    // await mongoose.connect(config.mongodb.uri, {
+    //   user: config.mongodb.username,
+    //   pass: config.mongodb.password,
+    //   retryWrites: trues
+    // }); 
+    // return next();
+    res.send(config)
   });
 }
 
