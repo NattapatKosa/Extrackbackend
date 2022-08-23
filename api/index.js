@@ -11,16 +11,16 @@ app.use(cookieParser());
 
 if (config.isVercel) {
   app.use(async (req, res, next) => {
-    await mongoose.connect(config.mongodb.uri, {
-      user: config.mongodb.username,
-      pass: config.mongodb.password,
-      retryWrites: true
-    });
+    await mongoose.connect(config.mongodb.uri);
     return next();
 
   });
 }
-
+// {
+//   user: config.mongodb.username,
+//   pass: config.mongodb.password,
+//   retryWrites: true
+// }
 
 app.use(
   cors({
@@ -47,14 +47,7 @@ app.use(
     //   },
     cookie: { maxAge: oneDay, secure: true, httpOnly: true, sameSite: "none" },
     resave: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
-      mongoOptions: {
-        user: config.mongodb.username,
-        pass: config.mongodb.password,
-        retryWrites: true
-      }
-    })
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI,})
   })
 );
 

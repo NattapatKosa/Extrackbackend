@@ -6,11 +6,7 @@ const config = require('./config/config');
 
 const boot = async () => {
   // Connect to mongodb
-  await mongoose.connect(config.mongodb.uri, {
-    user: config.mongodb.username,
-    pass: config.mongodb.password,
-    retryWrites: true
-  });
+  await mongoose.connect(config.mongodb.uri);
   // Start express server
   PORT = config.port;
   app.listen(PORT, () => {
