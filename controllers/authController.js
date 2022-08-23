@@ -14,7 +14,7 @@ const signIn = async (req,res, next) => {
         bcrypt.compare(password, user.password, function (err,result){
             if (result) {
                 req.session.user_id = user.user_id;                                         
-                console.log(req.session.user_id)
+                // console.log(req.session.user_id)
                 res.send({
                     id: user.id,
                     name: user.name,

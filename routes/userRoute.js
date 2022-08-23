@@ -7,7 +7,7 @@ const authSession = require('../middleware/authSession')
 
 
 userRoute.use(authSession);
-userRoute.patch('/me', userController.editUser);
+
 // path = user/activities
 const activitiesRoute = require('../routes/activitiesRoute')
 userRoute.use('/activities',activitiesRoute);
@@ -15,7 +15,7 @@ userRoute.use('/activities',activitiesRoute);
 
 userRoute.get('/', userController.allUsers);
 userRoute.get('/me', userController.get_me);
-
+userRoute.patch('/me', userController.editUser);
 
 
 

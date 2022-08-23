@@ -105,16 +105,43 @@ const getSummary = async (req, res, next) => {
     res.send(totalDurations)
 }
 
+const getDailyStat = async (req, res, next) => {
+    const dailyStat = await Activities.aggregate([
+      {
+        $match: {
+          owner: req.session.user_id,
+        },
+      },
+      {
+        $group: {
+          _id: "$date",
+          total_duration: {
+            $sum: "$duration",
+          },
+        },
+      },
+      {
+          $project:{
+            week_day: { $dayOfWeek: "$_id" },
+            total_duration: 1
+          },
+      },
+      {
+        $sort: {
+          _id: -1,
+        },
+      },
+    ]);
+    res.send(dailyStat);
+  };
+  
 module.exports = {
     getAllActivities,
     getActivityById,
     addActivity,
     editActivity,
     removeActivity,
-    getSummary
+    getSummary,
+    getDailyStat
 };
 
-// $group: {
-//     _id: "$date",
-//     total: { $sum: "$duration" },
-// }

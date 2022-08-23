@@ -10,6 +10,7 @@ const createUser = async (req,res,next) => {
     try {
         const newUser = new User({user_id: uuidv4(),...req.body})
         await newUser.save();
+        req.session.user_id = newUser.user_id;
         res.send("Register success");  
     }catch (err) {  
         res.send(err);
@@ -36,7 +37,7 @@ const editUser = async (req,res,next) => {
     if (username){
         user.username = username;
     }
-    if(password){
+    if(password){           
         user.password = password;
     }
     if(name){
