@@ -24,9 +24,7 @@ if (config.isVercel) {
 
 app.use(
   cors({
-    origin: [
-      "https://extrack-font-end.vercel.app",
-    ],
+    origin: "https://extrack-font-end.vercel.app",
     credentials: true,
     // allowedHeaders: ["Content-Type", "Authorization"],
   })
