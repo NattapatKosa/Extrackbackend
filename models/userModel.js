@@ -26,7 +26,6 @@ const userSchema = new mongoose.Schema({
    },
    dateOfBirth:{
     type: Date,
-    required: true
    },
    height: {
     type: Number,
@@ -34,7 +33,7 @@ const userSchema = new mongoose.Schema({
    },
    weight:{
     type: Number,
-    required: true
+    required: true      
    },
    inspiration: {
     type: String
